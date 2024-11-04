@@ -59,7 +59,7 @@ public class DisplayContact extends AppCompatActivity  {
                     rs.close();
                 }
                 Button b1 = (Button) findViewById(R.id.action_save);
-                b1.setVisibility(View.INVISIBLE);
+//                b1.setVisibility(View.INVISIBLE);
 
                 name.setText((CharSequence) nam);
                 name.setFocusable(false);
@@ -105,7 +105,6 @@ public class DisplayContact extends AppCompatActivity  {
         switch (item.getItemId()) {
             case R.id.Edit_Contact:
                 Button b2 = (Button) findViewById(R.id.Edit_Contact);
-                b2.setVisibility(View.VISIBLE);
                 name.setEnabled(true);
                 name.setFocusableInTouchMode(true);
                 name.setClickable(true);
@@ -129,7 +128,6 @@ public class DisplayContact extends AppCompatActivity  {
                 return true;
             case R.id.Delete_Contact:
                 Button b3 = (Button)findViewById(R.id.Delete_Contact);
-                b3.setVisibility(View.VISIBLE);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.deleteContact);
                 builder.setPositiveButton(R.string.action_yes, (dialog, id) -> {

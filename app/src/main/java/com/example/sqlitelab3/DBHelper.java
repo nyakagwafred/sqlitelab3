@@ -13,7 +13,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    public static final String DATABASE_NAME = "MyDBName.db";
+    public static final String DATABASE_NAME = "Carol.db";
     public static final String CONTACTS_TABLE_NAME = "contacts";
     public static final String CONTACTS_COLUMN_ID = "id";
     public static final String CONTACTS_COLUMN_NAME = "name";
@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
         db.execSQL(
                 "create table contacts " +
-                        "(id integer primary key, name text,phone text,email text, street text,place text)"
+                        "(id integer primary key, name text, phone text , email text, street text, place text)"
         );
     }
 
@@ -70,27 +70,44 @@ public class DBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updateContact (Integer id, String name, String phone, String email, String street,String place)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("phone", phone);
-        contentValues.put("email", email);
-        contentValues.put("street", street);
-        contentValues.put("place", place);
-        db.update("contacts", contentValues, id+" = ?", new String[] {
-                Integer.toString(id)
-        } );
-        return true;
-    }
+//    public boolean updateContact (Integer id, String name, String phone, String email, String street,String place)
+//    {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("name", name);
+//        contentValues.put("phone", phone);
+//        contentValues.put("email", email);
+//        contentValues.put("street", street);
+//        contentValues.put("place", place);
+//        db.update("contacts", contentValues, id+" = ?", new String[] {
+//                Integer.toString(id)
+//        } );
+//        db.close();
+//        return true;
+//    }
+public boolean updateContact (int id, String name, String phone, String email, String street,String place)
+{
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("name", name);
+    contentValues.put("phone", phone);
+    contentValues.put("email", email);
+    contentValues.put("street", street);
+    contentValues.put("place", place);
+    long l = db.update("contacts", contentValues, "id = ?", new String[]{String.valueOf(id)});
+    db.close();
+
+    return l > 0 ? true : false;
+}
 
     public Integer deleteContact (Integer id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete("contacts",
+         int i = db.delete("contacts",
                 "id = ? ",
                 new String[] { Integer.toString(id) });
+         db.close();
+        return i;
     }
 
     public ArrayList<String> getAllContacts()
